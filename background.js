@@ -16,11 +16,14 @@ function addButtons() {
     // add download button to all posts
     for (let i = 0; i < posts.length; i++) {
         // url of post
-        let url = posts[i].querySelector("a").href;
+        let post = posts[i];
 
         // check if url can be quickly retrieved instead of 2 API calls
+        let url = tryQuickUrl(post);
+        let onClickFunc = `download("${url}")`;
 
-        posts[i].lastChild.lastChild.lastChild.innerHTML += "<button onClick='>Download</button>";
-        console.log(posts[i])
+        console.log(onClickFunc);
+
+        posts[i].lastChild.lastChild.lastChild.innerHTML += `<button onClick='${onClickFunc}'>Download</button>`;
     }
 }
