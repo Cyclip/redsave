@@ -22,7 +22,3 @@ function tryQuickUrl(post) {
     // unknown
     return post.lastChild.children[1].querySelector("a").href;
 }
-
-function download(url) {
-    console.log("downloading", url);
-}
