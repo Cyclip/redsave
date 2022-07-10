@@ -1,13 +1,10 @@
 chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {
-    let url = new URL(tab.url);
-    if (tab.hostname === "www.reddit.com") {
-        if (changeInfo.status == 'complete') {
-            console.log("Complete", tab, tabId);
-            chrome.scripting.executeScript({
-                target: {tabId: tabId},
-                func: addButtons,
-            })
-        }
+    if (changeInfo.status == 'complete') {
+        console.log("Complete", tab, tabId);
+        chrome.scripting.executeScript({
+            target: {tabId: tabId},
+            func: addButtons,
+        })
     }
 })
 
@@ -20,6 +17,7 @@ chrome.runtime.onMessage.addListener(
         
         if (request.request === "downloadUrl") {
             let [result, response] = download(request.url);
+
             sendResponse({
                 success: result,
                 response: response,
@@ -47,7 +45,7 @@ function addButtons() {
                 request: "downloadUrl",
                 url: url,
             }, function(response) {
-                console.log("WEEE", response.farewell);
+                console.log("WEEE", response);
               });
               
         };
@@ -62,10 +60,10 @@ function download(url) {
         url: url,
         saveAs: true,
         filename: "test.jpg",
-    }, res => {
-        console.log(res);
-        chrome.downloads.open(res);
-    });
+    }, function(res) {
+            console.log(res);
+        }
+    );
 
     return (true, "");
 }

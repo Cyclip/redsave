@@ -10,8 +10,7 @@
         "storage", 
         "activeTab", 
         "scripting",
-        "downloads",
-        "downloads.open"
+        "downloads"
     ],
     "host_permissions": [
       "*://*.reddit.com/*"
