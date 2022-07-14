@@ -23,7 +23,8 @@ function tryQuickUrl(post) {
     // check for vids
     let vidSrc = post.querySelector("source");
     if (vidSrc !== null) {
-        return vidSrc.src;
+        let url = new URL(vidSrc.src);
+        return url.origin + url.pathname;
     }
 
     // unknown
@@ -55,7 +56,6 @@ function addButtons() {
         };
 
         posts[i].lastChild.lastChild.lastChild.appendChild(button);
-        console.log(`[Redsave] Created button with url ${url} at`, button);
     }
 }
 
@@ -69,3 +69,11 @@ var observer = new MutationObserver(function(mutations) {
 
 var config = {childList: true};
 observer.observe(observables, config);
+
+chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+        if (request.action === "addButtons") {
+            addButtons();
+        }
+    }
+  );
