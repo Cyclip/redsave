@@ -20,6 +20,12 @@ function tryQuickUrl(post) {
         }
     }
 
+    // check for vids
+    let vidSrc = post.querySelector("source");
+    if (vidSrc !== null) {
+        return vidSrc.src;
+    }
+
     // unknown
     return post.lastChild.children[1].querySelector("a").href;
 }
@@ -44,12 +50,12 @@ function addButtons() {
                 action: "downloadUrl",
                 url: url,
             }, function(response) {
-                console.log("Downloaded response:", response);
+                console.log("[Redsave] Downloaded response:", response);
               });
         };
 
         posts[i].lastChild.lastChild.lastChild.appendChild(button);
-        console.log(`Created button with url ${url} at`, button);
+        console.log(`[Redsave] Created button with url ${url} at`, button);
     }
 }
 

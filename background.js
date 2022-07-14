@@ -9,9 +9,9 @@ chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {
 })
 
 chrome.runtime.onMessage.addListener(
-    function(request, sender, sendResponse) {
+    async function(request, sender, sendResponse) {
         if (request.action === "downloadUrl") {
-            let [result, response] = download(request.url);
+            let [result, response] = await download(request.url);
 
             sendResponse({
                 success: result,
@@ -41,25 +41,17 @@ function addButtons() {
                 action: "downloadUrl",
                 url: url,
             }, function(response) {
-                console.log("Downloaded response:", response);
+                console.log("[Redsave] Downloaded response:", response);
               });
         };
 
         posts[i].lastChild.lastChild.lastChild.appendChild(button);
-        console.log(`Created button with url ${url} at`, button);
+        console.log(`[Redsave] Created button with url ${url} at`, button);
     }
 }
 
-function download(url) {
-    console.log("downloading", url);
-    chrome.downloads.download({
-        url: url,
-        saveAs: true,
-        filename: "test.jpg",
-    }, function(res) {
-            console.log(res);
-        }
-    );
+async function download(url) {
+    console.log("[Redsave] downloading", url);
 
     return (true, "");
 }
