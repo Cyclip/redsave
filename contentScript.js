@@ -43,6 +43,7 @@ function addButtons() {
 
         // check if url can be quickly retrieved instead of 2 API calls
         let url = tryQuickUrl(post);
+        console.log(url);
 
         let button = document.createElement("button");
         button.innerText = "Download";
@@ -73,6 +74,7 @@ observer.observe(observables, config);
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         if (request.action === "addButtons") {
+            console.log("[Redsave] Adding buttons");
             addButtons();
         }
     }
