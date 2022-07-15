@@ -71,7 +71,7 @@ function downloadVideo(urL) {
     return (false, "Feature is not yet implemented");
 
     // code to be used in conjunction with redsave API
-    // https://www.github.com/Cyclip/red-save
+    // https://www.github.com/Cyclip/redsave-api
     
 }
 
